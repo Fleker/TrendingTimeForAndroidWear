@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.felkertech.n.utils.SettingsManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.DataApi;
@@ -34,8 +35,8 @@ public class UpdateTrendingTopicsService extends Service implements GoogleApiCli
     * */
 
     private static final String PATH = "/trendingtopics";
-    private static final String URL = "CUSTOMPROXYURL";   // replace this value with your own URL
-    private static final String TAG = "TrendingTime";
+    private static final String URL = "http://divine-display-828.appspot.com/";   // replace this value with your own URL
+    private static final String TAG = "TrendingTime::TopicsService";
 
     GoogleApiClient googleApiClient;
     String responseBody;
@@ -55,32 +56,20 @@ public class UpdateTrendingTopicsService extends Service implements GoogleApiCli
                     request = new HttpGet(URL);
                     response = client.execute(request);
                     responseBody = EntityUtils.toString(response.getEntity());
+                    Log.d(TAG, responseBody);
+                    Log.d(TAG, "And then ");
+                    Log.d(TAG, responseBody.split(";").toString());
 
-                    Log.i(TAG, "assembling DataMap");
-                    DataMap dataMap = new DataMap();
-                    dataMap.putString("trendingTopics", responseBody);
-                    Log.i(TAG, "DataMap assembled: " + dataMap);
-                    // TODO: handle scenarios when the app is run for the first time (DataMap value comes out as NULL)
+                    //TODO Now we add each one to a SharedPreference
+                    SettingsManager sm = new SettingsManager(getApplication());
+                    sm.setString("HT1", responseBody.split(";")[0]);
+                    sm.setString("HT2", responseBody.split(";")[1]);
+                    sm.setString("HT3", responseBody.split(";")[2]);
+                    sm.setString("HT4", responseBody.split(";")[3]);
+                    sm.setString("HT5", responseBody.split(";")[4]);
+                    //The daydream will take the SP and display it in a layout
 
-                    googleApiClient.connect();
-
-                    NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes(googleApiClient).await();
-
-                    for(Node node : nodes.getNodes()) {
-                        // build a DataRequest
-                        PutDataMapRequest dataMapRequest = PutDataMapRequest.create(PATH);
-                        dataMapRequest.getDataMap().putAll(dataMap);
-                        PutDataRequest dataRequest = dataMapRequest.asPutDataRequest();
-
-                        // send the DataRequest asynchronously over the Data Layer
-                        DataApi.DataItemResult result = Wearable.DataApi.putDataItem(googleApiClient, dataRequest).await();
-
-                        if (result.getStatus().isSuccess()) {
-                            Log.i(TAG, "DataMap: " + dataMap + " send to: " + node.getDisplayName());
-                        } else {
-                            Log.i(TAG, "Error in syncing DataMap!");
-                        }
-                    }
+//                    googleApiClient.connect();
                 } catch (ClientProtocolException ex) {
                     Log.i(TAG, String.format("ClientProtocolException: %s", ex.getMessage()));
                     ex.printStackTrace();
@@ -104,11 +93,11 @@ public class UpdateTrendingTopicsService extends Service implements GoogleApiCli
         Log.i(TAG, "onCreate()");
         super.onCreate();
 
-        googleApiClient = new GoogleApiClient.Builder(this)
+        /*googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .addApi(Wearable.API)
-                .build();
+                *//*.addApi(Wearable.API)*//*
+                .build();*/
     }
 
     @Override

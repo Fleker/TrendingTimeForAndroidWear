@@ -4,5 +4,20 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
-
+    <style name="hashtagStyle">
+        <item name="android:textColor">@color/blacktext</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:paddingStart">27dp</item>
+        <item name="android:paddingEnd">27dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_width">320dp</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:minHeight">120dp</item>
+    </style>
+    <style name="clockStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">40sp</item>
+    </style>
 </resources>

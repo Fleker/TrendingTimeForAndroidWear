@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "wearables.jasonsalas.com.trendingtime"
+        applicationId "com.felkertech.tv.trendingtime"
         minSdkVersion 18
         targetSdkVersion 21
         versionCode 1
@@ -21,7 +21,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    wearApp project(':wear')
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.google.android.gms:play-services:6.5.87'
 }

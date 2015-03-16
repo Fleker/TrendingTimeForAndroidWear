@@ -22,7 +22,8 @@ public class BootstrapReceiver extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_HOUR, pendingIntent);
+            //REPEATS EVERY 3 MINUTES
+            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES/5, pendingIntent);
             Toast.makeText(context, "Updating Trending Time topics...", Toast.LENGTH_LONG).show();
         }
     }

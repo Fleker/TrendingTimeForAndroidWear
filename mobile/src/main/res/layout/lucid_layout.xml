@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/gray"
+    android:layout_height="match_parent">
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="2"
+        android:columnCount="3">
+        <TextView
+            style="@style/hashtagStyle"
+            android:id="@+id/ht1"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:background="@color/red"
+            android:text="#WassupMusicVideo"/>
+        <TextView
+            style="@style/hashtagStyle"
+            android:id="@+id/ht2"
+            android:background="@color/green"
+            android:text="Happy Pi Day"/>
+        <TextView
+            style="@style/hashtagStyle"
+            android:id="@+id/ht3"
+            android:background="@color/blue"
+            android:text="Boatright"/>
+        <TextView
+            style="@style/hashtagStyle"
+            android:id="@+id/ht4"
+            android:background="@color/orange"
+            android:text="#AmericanPharoah"/>
+        <TextView
+            style="@style/hashtagStyle"
+            android:background="@color/teal"
+            android:textAllCaps="true"
+            android:text="Currently trending"/>
+        <TextView
+            style="@style/hashtagStyle"
+            android:id="@+id/ht5"
+            android:layout_column="2"
+            android:background="@color/purple"
+            android:text="#RuinARocker"/>
+    </GridLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/clock"
+            style="@style/clockStyle"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="bottom|start"
+            android:paddingStart="32dp"
+            android:paddingBottom="32dp"
+            android:text="5:00"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/date"
+            style="@style/clockStyle"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="bottom|end"
+            android:paddingEnd="32dp"
+            android:paddingBottom="32dp"
+            android:text="Saturday,\n15 March 2015"/>
+    </LinearLayout>
+</LinearLayout>

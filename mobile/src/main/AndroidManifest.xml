@@ -1,36 +1,61 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="wearables.jasonsalas.com.trendingtime" android:versionCode="1" android:versionName="1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.felkertech.tv.trendingtime" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BIND_DREAM_SERVICE" />
 
     <!-- copied permissions used on watch (required) -->
-    <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--<uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />-->
+    <!--<uses-permission android:name="android.permission.WAKE_LOCK" />-->
 
-    <application android:allowBackup="true" android:label="@string/app_name" android:icon="@drawable/appicon" android:theme="@style/AppTheme">
-
-        <activity android:name=".ConfigurationActivity" android:label="@string/app_name">
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/appicon"
+        android:logo="@drawable/appicon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="wearables.jasonsalas.com.trendingtime.ConfigurationActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <service android:name=".UpdateTrendingTopicsService" />
+        <service android:name="wearables.jasonsalas.com.trendingtime.UpdateTrendingTopicsService" />
 
         <!-- recurring updater process (called by an Alarm Manager) -->
-        <receiver android:name=".UpdateTrendingTopicsReceiver" />
+        <receiver android:name="wearables.jasonsalas.com.trendingtime.UpdateTrendingTopicsReceiver" />
 
         <!-- this component is only called when the app explicitly enables it -->
-        <receiver android:name=".BootstrapReceiver" android:enabled="false">
+        <receiver
+            android:name="wearables.jasonsalas.com.trendingtime.BootstrapReceiver"
+            android:enabled="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
+        <!-- This service is only used on devices with API v17+ -->
+        <service
+            android:name=".TrendingTime"
+            android:icon="@drawable/appicon"
+            android:label="Trending Time"
+            android:permission="android.permission.BIND_DREAM_SERVICE"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
