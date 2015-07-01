@@ -13,7 +13,7 @@ public class UpdateTrendingTopicsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "starting updater service");
-        Toast.makeText(context, "hit receiver", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "hit receiver", Toast.LENGTH_SHORT).show();
         Intent trendsIntent = new Intent(context, UpdateTrendingTopicsService.class);
         context.startService(trendsIntent);
      }

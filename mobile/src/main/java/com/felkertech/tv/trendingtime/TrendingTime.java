@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felkertech.n.utils.SettingsManager;
+import com.felkertech.n.weatherdelta.utils.WeatherBroadcasterUtils;
 
 import wearables.jasonsalas.com.trendingtime.ConfigurationActivity;
 import wearables.jasonsalas.com.trendingtime.UpdateTrendingTopicsReceiver;
@@ -89,11 +90,18 @@ public class TrendingTime extends DreamService {
                 ((TextView) ll.findViewById(R.id.clock)).setText(clk);
                 String dt = new SimpleDateFormat("EEEE,\nd MMMM yyyy").format(new Date());
                 ((TextView) ll.findViewById(R.id.date)).setText(dt);
-                this.sendEmptyMessageDelayed(0, 1000*10);
+                this.sendEmptyMessageDelayed(0, 1000*30);
             }
         };
         Log.d(TAG, "Started dreaming");
         h.sendEmptyMessageDelayed(0, 0);
+
+        if(WeatherBroadcasterUtils.isAppInstalled(this)) {
+            Log.d(TAG, "Integrate temperature");
+            ((TextView) findViewById(R.id.temperature)).setText(sm.getString("TEMPERATURE"));
+        } else {
+            ((TextView) findViewById(R.id.temperature)).setText("?");
+        }
     }
 
     @Override

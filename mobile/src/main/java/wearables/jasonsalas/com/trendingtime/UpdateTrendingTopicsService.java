@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.felkertech.n.utils.SettingsManager;
+import com.felkertech.n.weatherdelta.utils.WeatherBroadcasterUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.DataApi;
@@ -36,7 +37,7 @@ public class UpdateTrendingTopicsService extends Service implements GoogleApiCli
 
     private static final String PATH = "/trendingtopics";
     private static final String URL = "http://divine-display-828.appspot.com/";   // replace this value with your own URL
-    private static final String TAG = "TrendingTime::TopicsService";
+    private static final String TAG = "TrendingTime:Topics";
 
     GoogleApiClient googleApiClient;
     String responseBody;
@@ -58,7 +59,7 @@ public class UpdateTrendingTopicsService extends Service implements GoogleApiCli
                     responseBody = EntityUtils.toString(response.getEntity());
                     Log.d(TAG, responseBody);
                     Log.d(TAG, "And then ");
-                    Log.d(TAG, responseBody.split(";").toString());
+//                    Log.d(TAG, responseBody.split(";"));
 
                     //TODO Now we add each one to a SharedPreference
                     SettingsManager sm = new SettingsManager(getApplication());
@@ -79,6 +80,14 @@ public class UpdateTrendingTopicsService extends Service implements GoogleApiCli
                 }
             }
         }).start();
+
+        if(WeatherBroadcasterUtils.isAppInstalled(this)) {
+            Log.d(TAG, "WeatherDelta!");
+            startService(WeatherBroadcasterUtils.getWeatherRequest(this));
+            Log.d(TAG, "Now wait");
+        } else {
+            Log.d(TAG, "No WeatherDelta");
+        }
 
         return Service.START_NOT_STICKY;
     }
